@@ -1,0 +1,517 @@
+
+
+--------- DESCRIPTIVE STATISTICS TABLE ---------
+
+
+ Left
+        Obw  Obw % Weil Weil %
+Comma  2329  49.15 2868  59.95
+Word    750  15.83 1132  23.66
+End     972  20.51  568  11.87
+Paro    287   6.06   35   0.73
+Three   170   3.59   71   1.48
+Hyphen   97   2.05   43   0.90
+Emo      97   2.05   42   0.88
+Colon    37   0.78   25   0.52
+       4739 100.02 4784  99.99
+
+ Right
+        Obw  Obw % Weil Weil %
+Word   4544  95.89 4737  99.02
+Comma   127   2.68    1   0.02
+Three    42   0.89    7   0.15
+Hyphen    9   0.19   26   0.54
+Colon    17   0.36   13   0.27
+       4739 100.01 4784 100.00
+
+ Mod
+   Obw  Obw % Weil Weil %
+0 4496  94.87 4142  86.58
+1  243   5.13  642  13.42
+  4739 100.00 4784 100.00
+
+ Hypo
+   Obw  Obw % Weil Weil %
+0 4693  99.03 4754  99.37
+1   46   0.97   30   0.63
+  4739 100.00 4784 100.00
+
+ Senttype
+    Obw  Obw % Weil Weil %
+VL 4457  94.05 4441  92.83
+V2  282   5.95  343   7.17
+   4739 100.00 4784 100.00
+
+
+---- Distribution of Hypo ----- 
+
+ obwohl 
+   
+      VL   V2
+  0 4451  242
+  1    6   40
+        VL    V2
+[1,] 99.87 85.82
+[2,]  0.13 14.18
+
+	Fisher's Exact Test for Count Data
+
+data:  obw.hyp.tab
+p-value <2e-16
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+  50.87 357.64
+sample estimates:
+odds ratio 
+     122.2 
+
+
+ weil 
+   
+      VL   V2
+  0 4432  322
+  1    9   21
+       VL    V2
+[1,] 99.8 93.88
+[2,]  0.2  6.12
+
+	Fisher's Exact Test for Count Data
+
+data:  wei.hyp.tab
+p-value <2e-16
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+ 13.94 80.04
+sample estimates:
+odds ratio 
+     32.05 
+
+
+
+--------- GLMs ---------
+
+
+
+--------- OBWOHL ---------
+
+ Response: +1 : V2, -1 : VL
+
+n= 4693
+
+Call:
+glm(formula = Senttype ~ Right + Independent + ModBin, family = binomial, 
+    data = obwohl)
+
+Deviance Residuals: 
+   Min      1Q  Median      3Q     Max  
+-3.403  -0.151  -0.151  -0.151   2.991  
+
+Coefficients:
+             Estimate Std. Error z value Pr(>|z|)    
+(Intercept)    -4.463      0.152  -29.40  < 2e-16 ***
+RightComma      8.191      1.018    8.05  8.3e-16 ***
+RightThree      7.195      1.034    6.96  3.4e-12 ***
+RightColon     22.686   2545.826    0.01     0.99    
+RightHyphen    23.357   3618.083    0.01     0.99    
+Independent1    2.058      0.225    9.13  < 2e-16 ***
+ModBin1       -15.636    658.265   -0.02     0.98    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1906.31  on 4692  degrees of freedom
+Residual deviance:  760.38  on 4686  degrees of freedom
+AIC: 774.4
+
+Number of Fisher Scoring iterations: 18
+
+
+
+Odds ratios:
+                  [,1]
+(Intercept)  1.153e-02
+RightComma   3.608e+03
+RightThree   1.333e+03
+RightColon   7.121e+09
+RightHyphen  1.392e+10
+Independent1 7.826e+00
+ModBin1      1.620e-07
+
+
+Nagelkerke R² =  0.649 
+Dispersion  φ =  0.979 
+LR Test     LR =  1146    df =  6    p =  1 
+10-CV    Delta =  0.01716 
+
+Variance inflation / colinearity:
+             GVIF Df GVIF^(1/(2*Df))
+Right       1.005  4           1.001
+Independent 1.005  1           1.003
+ModBin      1.000  1           1.000
+
+Bootstrap with  10000  replicates
+                R original bootBias bootSE bootMed
+(Intercept)  9998    -4.46 -0.01368  0.154   -4.47
+RightComma   9998     8.19  5.23589  7.359    8.26
+RightThree   9998     7.20  5.66299  7.832    7.29
+RightColon   9998    22.69 -0.06801  0.400   22.67
+RightHyphen  9998    23.36 -0.07556  0.456   23.34
+Independent1 9998     2.06 -0.00057  0.231    2.06
+ModBin1      9998   -15.64  0.06072  0.231  -15.61
+
+
+--------- WEIL ---------
+
+ Response: + = V2, - = VL
+
+n= 4754
+
+Call:
+glm(formula = Senttype ~ Right + Independent * ModBin, family = binomial, 
+    data = weil)
+
+Deviance Residuals: 
+   Min      1Q  Median      3Q     Max  
+-1.397  -0.326  -0.326  -0.326   3.123  
+
+Coefficients:
+                      Estimate Std. Error z value Pr(>|z|)    
+(Intercept)            -2.9113     0.0741  -39.28  < 2e-16 ***
+RightHyphen             3.4148     0.5923    5.77  8.1e-09 ***
+RightColon              5.3615     1.1197    4.79  1.7e-06 ***
+RightThree             19.9508  1672.3931    0.01     0.99    
+RightComma             18.5977  3956.1803    0.00     1.00    
+Independent1            1.8797     0.1388   13.54  < 2e-16 ***
+ModBin1                -1.9565     0.4781   -4.09  4.3e-05 ***
+Independent1:ModBin1  -14.5779   414.7207   -0.04     0.97    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2355.5  on 4753  degrees of freedom
+Residual deviance: 2006.4  on 4746  degrees of freedom
+AIC: 2022
+
+Number of Fisher Scoring iterations: 16
+
+
+
+Odds ratios:
+                          [,1]
+(Intercept)          5.440e-02
+RightHyphen          3.041e+01
+RightColon           2.130e+02
+RightThree           4.619e+08
+RightComma           1.194e+08
+Independent1         6.551e+00
+ModBin1              1.413e-01
+Independent1:ModBin1 4.666e-07
+
+
+Nagelkerke R²=  0.181 
+Dispersion  φ =  0.999 
+LR Test     LR =  349    df =  7    p =  1 
+Variance inflation / colinearity:
+                    GVIF Df GVIF^(1/(2*Df))
+Right              1.016  4           1.002
+Independent        1.008  1           1.004
+ModBin             1.021  1           1.010
+Independent:ModBin 1.000  1           1.000
+
+
+--------- V2 ---------
+
+ Response: +1 : Weil, -1 : Obwohl
+
+n= 563
+
+Call:
+glm(formula = Target ~ Right + Left, family = binomial, data = v2)
+
+Deviance Residuals: 
+   Min      1Q  Median      3Q     Max  
+-2.010  -0.214   0.533   0.538   3.016  
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)    
+(Intercept)   1.8785     0.2349    8.00  1.3e-15 ***
+RightHyphen  -0.6628     0.5349   -1.24  0.21533    
+RightColon   -1.3553     0.4352   -3.11  0.00184 ** 
+RightThree   -3.1029     0.5064   -6.13  8.9e-10 ***
+RightComma   -5.6449     1.0172   -5.55  2.9e-08 ***
+LeftEnd      -0.7722     0.2955   -2.61  0.00896 ** 
+LeftWord     -0.0186     0.3798   -0.05  0.96099    
+LeftEmo      -1.8167     0.5177   -3.51  0.00045 ***
+LeftThree    -2.7190     0.5787   -4.70  2.6e-06 ***
+LeftHyphen   -1.0973     0.7007   -1.57  0.11737    
+LeftParo     -3.5745     1.0996   -3.25  0.00115 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 768.79  on 562  degrees of freedom
+Residual deviance: 448.56  on 552  degrees of freedom
+AIC: 470.6
+
+Number of Fisher Scoring iterations: 7
+
+
+
+Odds ratios:
+                [,1]
+(Intercept) 6.543468
+RightHyphen 0.515417
+RightColon  0.257866
+RightThree  0.044917
+RightComma  0.003535
+LeftEnd     0.461989
+LeftWord    0.981592
+LeftEmo     0.162568
+LeftThree   0.065939
+LeftHyphen  0.333780
+LeftParo    0.028029
+
+
+Nagelkerke R² =  0.582 
+Dispersion  φ =  1.001 
+LR Test     LR =  320.2    df =  10    p =  1 
+10-CV    Delta =  0.1332 
+Variance inflation / colinearity:
+      GVIF Df GVIF^(1/(2*Df))
+Right 1.06  4           1.007
+Left  1.06  6           1.005
+
+Bootstrap with  10,000  replicates
+                R original bootBias bootSE bootMed
+(Intercept) 10000   1.8785   0.0213  0.243  1.8913
+RightHyphen 10000  -0.6628   0.0268  0.675 -0.6625
+RightColon  10000  -1.3553  -0.0113  0.449 -1.3653
+RightThree  10000  -3.1029  -0.2388  1.422 -3.1776
+RightComma  10000  -5.6449  -4.9355  6.976 -5.7445
+LeftEnd     10000  -0.7722  -0.0071  0.299 -0.7751
+LeftWord    10000  -0.0186   0.0136  0.420 -0.0214
+LeftEmo     10000  -1.8167  -0.0361  0.555 -1.8431
+LeftThree   10000  -2.7190  -0.2006  1.485 -2.7718
+LeftHyphen  10000  -1.0973   0.0407  1.305 -1.0820
+LeftParo    10000  -3.5745  -5.0509  7.307 -3.7262
+
+
+--------- VL ---------
+
+ Response: +1 : Weil, -1 : Obwohl
+
+n= 8882
+
+Call:
+glm(formula = Target ~ Right + Independent * ModBin, family = binomial, 
+    data = weilobwohl.vl)
+
+Deviance Residuals: 
+   Min      1Q  Median      3Q     Max  
+-1.655  -1.147  -0.998   1.208   1.369  
+
+Coefficients:
+                     Estimate Std. Error z value Pr(>|z|)    
+(Intercept)           -0.0724     0.0234   -3.09    0.002 ** 
+RightHyphen           12.4428   140.9941    0.09    0.930    
+RightComma           -12.1271   324.7437   -0.04    0.970    
+RightThree           -12.4937   324.7437   -0.04    0.969    
+Independent1          -0.3666     0.0809   -4.53  5.9e-06 ***
+ModBin1                1.0147     0.0843   12.04  < 2e-16 ***
+Independent1:ModBin1   0.5011     0.2374    2.11    0.035 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 12313  on 8881  degrees of freedom
+Residual deviance: 12079  on 8875  degrees of freedom
+AIC: 12093
+
+Number of Fisher Scoring iterations: 11
+
+
+
+Odds ratios:
+                          [,1]
+(Intercept)          9.302e-01
+RightHyphen          2.534e+05
+RightComma           5.411e-06
+RightThree           3.750e-06
+Independent1         6.931e-01
+ModBin1              2.759e+00
+Independent1:ModBin1 1.651e+00
+
+
+Nagelkerke R² =  0.035 
+Dispersion  φ =  1 
+LR Test     LR =  233.8    df =  6    p =  1 
+
+Variance inflation / colinearity:
+                    GVIF Df GVIF^(1/(2*Df))
+Right              1.000  3           1.000
+Independent        1.134  1           1.065
+ModBin             1.147  1           1.071
+Independent:ModBin 1.289  1           1.135
+
+
+===============================================
+Auxiliary study: total isolation of VL clauses.
+
+        
+         Matrix Nomatrix
+  Obwohl    373      415
+  Weil      112      258
+
+
+ Percentages
+       Matrix Nomatrix
+Obwohl  47.34    52.66
+Weil    30.27    69.73
+
+	Fisher's Exact Test for Count Data
+
+data:  initial.tab
+p-value = 4e-08
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+ 1.581 2.718
+sample estimates:
+odds ratio 
+     2.069 
+
+
+
+Sample sizes in aux study:
+
+Obwohl: 788 of 4431 (= 17.78 %)
+weil: 370 of 4451 (= 8.31 %)
+
+
+===============================================
+Remark in Sec. 5: VL with Right=Comma
+
+obwohl VL with Right=Comma: 1 
+
+weil VL with Right=Comma: 0 
+
+
+
+===============================================
+Aux study in Section 5.2 (top sentence-inital words with PM)
+
+ === COLON === 
+
+      Word        Percent Count  
+ [1,] "PS"        "6.84"  "85147"
+ [2,] "Zitat"     "5.51"  "68600"
+ [3,] "Edit"      "4.03"  "50203"
+ [4,] "EDIT"      "2.38"  "29595"
+ [5,] "Wohnort"   "2.23"  "27719"
+ [6,] "Fazit"     "2.12"  "26364"
+ [7,] "P.S."      "1.91"  "23725"
+ [8,] "Also"      "1.4"   "17369"
+ [9,] "Beruf"     "1.12"  "13952"
+[10,] "Aber"      "1.01"  "12611"
+[11,] "Übrigens"  "0.91"  "11367"
+[12,] "Titel"     "0.9"   "11241"
+[13,] "Und"       "0.86"  "10654"
+[14,] "Re"        "0.76"  "9492" 
+[15,] "Frage"     "0.76"  "9490" 
+[16,] "Quelle"    "0.75"  "9299" 
+[17,] "BTW"       "0.68"  "8463" 
+[18,] "Beispiel"  "0.53"  "6654" 
+[19,] "Ort"       "0.53"  "6549" 
+[20,] "Ansonsten" "0.51"  "6309" 
+
+ Total:  1244898 
+
+ === COMMA === 
+
+      Word     Percent Count   
+ [1,] "Ja"     "7.5"   "239380"
+ [2,] "Naja"   "6.21"  "198089"
+ [3,] "Also"   "3.8"   "121348"
+ [4,] "So"     "3.72"  "118625"
+ [5,] "Nein"   "3.51"  "111866"
+ [6,] "Tja"    "1.99"  "63381" 
+ [7,] "Sorry"  "1.83"  "58403" 
+ [8,] "Klar"   "1.64"  "52447" 
+ [9,] "Ok"     "1.46"  "46489" 
+[10,] "Gut"    "1.4"   "44729" 
+[11,] "Hallo"  "1.24"  "39476" 
+[12,] "Na"     "1.21"  "38654" 
+[13,] "Hm"     "1.17"  "37407" 
+[14,] "Schade" "1.11"  "35280" 
+[15,] "Nun"    "1.09"  "34718" 
+[16,] "Okay"   "0.94"  "30153" 
+[17,] "Ach"    "0.94"  "29861" 
+[18,] "Nee"    "0.92"  "29259" 
+[19,] "Oh"     "0.77"  "24670" 
+[20,] "Hmm"    "0.77"  "24536" 
+
+
+ Total:  3191317 
+
+ === DASH === 
+
+      Word        Percent Count 
+ [1,] "Und"       "1.96"  "3353"
+ [2,] "Also"      "1.72"  "2940"
+ [3,] "Aber"      "1.59"  "2711"
+ [4,] "Naja"      "1.49"  "2548"
+ [5,] "Ja"        "1.38"  "2355"
+ [6,] "So"        "1.09"  "1858"
+ [7,] "Nein"      "0.99"  "1698"
+ [8,] "YouTube"   "0.97"  "1664"
+ [9,] "Tja"       "0.66"  "1121"
+[10,] "Klar"      "0.65"  "1118"
+[11,] "Sorry"     "0.6"   "1030"
+[12,] "Nur"       "0.58"  "990" 
+[13,] "Trabi"     "0.55"  "935" 
+[14,] "Übrigens"  "0.52"  "892" 
+[15,] "Ok"        "0.47"  "808" 
+[16,] "Köln"      "0.43"  "734" 
+[17,] "Stimmt"    "0.42"  "713" 
+[18,] "Nun"       "0.42"  "712" 
+[19,] "Ansonsten" "0.41"  "697" 
+[20,] "Gut"       "0.4"   "687" 
+
+
+ Total:  170789 
+
+ === ELLIPSIS === 
+
+      Word        Percent Count  
+ [1,] "Naja"      "5.46"  "11488"
+ [2,] "Hm"        "4.23"  "8916" 
+ [3,] "Hmm"       "4.2"   "8844" 
+ [4,] "Also"      "2.91"  "6119" 
+ [5,] "Hmmm"      "2.87"  "6039" 
+ [6,] "So"        "2.28"  "4796" 
+ [7,] "Aber"      "1.83"  "3854" 
+ [8,] "Ja"        "1.82"  "3823" 
+ [9,] "Tja"       "1.76"  "3700" 
+[10,] "Ähm"       "1.53"  "3219" 
+[11,] "Und"       "1.42"  "2980" 
+[12,] "Nein"      "0.88"  "1857" 
+[13,] "Obwohl"    "0.76"  "1611" 
+[14,] "Öhm"       "0.75"  "1578" 
+[15,] "Ok"        "0.72"  "1516" 
+[16,] "Okay"      "0.71"  "1493" 
+[17,] "Achja"     "0.66"  "1399" 
+[18,] "Ich"       "0.6"   "1267" 
+[19,] "Ansonsten" "0.57"  "1194" 
+[20,] "Äh"        "0.56"  "1188" 
+
+
+ Total:  210593 
+
+===============================================
+See you then. Be good! Bye-bye!
+===============================================
+
+
